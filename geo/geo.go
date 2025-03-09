@@ -17,14 +17,14 @@ func GetMyLocation(city string) (*GeoData, error) {
 			City: city,
 		}, nil
 	}
-	resp, err := http.Get("https://ipapi.co/json/")
+	resp, err := http.Get("https://freegeoip.app/json/")
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println(resp.Status)
-	// if resp.StatusCode != 200 {
-	// 	return nil, fmt.Errorf("NOT200: %s", err)
-	// }
+
+	if resp.StatusCode != 200 {
+		return nil, fmt.Errorf("NOT200: %s", err)
+	}
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, fmt.Errorf("cant read body: %w", err)

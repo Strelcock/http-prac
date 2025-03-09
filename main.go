@@ -5,17 +5,23 @@ import (
 	"fmt"
 	"log"
 	"myHttp/geo"
+	"myHttp/weather"
 )
 
 func main() {
 	city := flag.String("city", "", "Город пользователя")
-	// format := flag.Int("format", 1, "Формат вывода")
+	format := flag.Int("format", 1, "Формат вывода")
 	flag.Parse()
 
-	fmt.Println(*city)
 	geoData, err := geo.GetMyLocation(*city)
 	if err != nil {
 		log.Fatalf("getMyLocation: %s", err)
 	}
-	fmt.Printf("%+v", geoData)
+	fmt.Printf("%+v\n", geoData)
+
+	weatherData, err := weather.GetWeather(*geoData, *format)
+	if err != nil {
+		log.Fatalf("GetWeather: %s", err)
+	}
+	fmt.Println(weatherData)
 }
