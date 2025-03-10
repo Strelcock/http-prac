@@ -17,7 +17,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("getMyLocation: %s", err)
 	}
-	fmt.Printf("%+v\n", geoData)
+	fmt.Printf("%s\n", geoData.City)
 
 	weatherData, err := weather.GetWeather(*geoData, *format)
 	if err != nil {
